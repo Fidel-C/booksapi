@@ -10,7 +10,7 @@ phone:07064620806
 
 
 Installation of dependencies
-- Create a virtual environment (recommended) not compulsory. And run the commands below
+- Create a virtual environment (recommended) and run the commands below
 
 ```pip install -r requirements.txt```
 
