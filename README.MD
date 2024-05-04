@@ -9,11 +9,13 @@ email:fidelchukwunyere@gmail.com
 phone:07064620806
 
 
+Installation of dependencies
+- Create a virtual environment (recommended) not compulsory. And run the commands below
 
+```pip install -r requirements.txt```
 
 CMD TO RUN THE APPLICATION
 ```python main.py```
-
 
 
 TO RUN THE TESTS
