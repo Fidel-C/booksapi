@@ -12,7 +12,7 @@ router = APIRouter(prefix="/books",tags=["Books"])
 
 # create book
 @router.post(
-    "", response_model=schemas.PostOutSchema, status_code=status.HTTP_201_CREATED
+    "", response_model=schemas.BookOutSchema, status_code=status.HTTP_201_CREATED
 )
 async def create_book(
     payload: schemas.CreateBookSchema, db: AsyncSession = Depends(get_db)
@@ -25,7 +25,7 @@ async def create_book(
 
 
 # retrieve all books
-@router.get("", response_model=list[schemas.PostOutSchema])
+@router.get("", response_model=list[schemas.BookOutSchema])
 async def get_books(db: AsyncSession = Depends(get_db)):
     stmt = select(models.Book)
     result = await db.execute(stmt)
@@ -34,9 +34,9 @@ async def get_books(db: AsyncSession = Depends(get_db)):
 
 
 # retrieve single book by id
-@router.get("/{book_id}", response_model=schemas.PostOutSchema)
-async def get_book(book_id: int, db: AsyncSession = Depends(get_db)):
-    stmt = select(models.Book).where(models.Book.id == book_id)
+@router.get("/{id}", response_model=schemas.BookOutSchema)
+async def get_book(id: int, db: AsyncSession = Depends(get_db)):
+    stmt = select(models.Book).where(models.Book.id == id)
     result = await db.execute(stmt)
     book = result.scalar_one_or_none()
     if book is None:
@@ -51,13 +51,13 @@ async def get_book(book_id: int, db: AsyncSession = Depends(get_db)):
 # update book
 
 
-@router.patch("/{book_id}", response_model=schemas.PostOutSchema)
+@router.put("/{id}", response_model=schemas.BookOutSchema)
 async def update_book(
-    book_id: int,
+    id: int,
     payload: schemas.UpdateBookSchema,
     db: AsyncSession = Depends(get_db),
 ):
-    stmt = select(models.Book).where(models.Book.id == book_id)
+    stmt = select(models.Book).where(models.Book.id == id)
     result = await db.execute(stmt)
     book = result.scalar_one_or_none()
     if book is None:
@@ -77,9 +77,9 @@ async def update_book(
 # delete book
 
 
-@router.delete("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_book(book_id: int, db: AsyncSession = Depends(get_db)):
-    stmt = select(models.Book).where(models.Book.id == book_id)
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_book(id: int, db: AsyncSession = Depends(get_db)):
+    stmt = select(models.Book).where(models.Book.id == id)
     result = await db.execute(stmt)
     book = result.scalar_one_or_none()
     if book is None:
@@ -88,7 +88,7 @@ async def delete_book(book_id: int, db: AsyncSession = Depends(get_db)):
             detail="Book with the given id does not exist",
         )
     else:
-        delete_stmt = delete(models.Book).where(models.Book.id == book_id)
+        delete_stmt = delete(models.Book).where(models.Book.id == id)
         await db.execute(delete_stmt)
         await db.commit()
         return "Sucessfully deleted"

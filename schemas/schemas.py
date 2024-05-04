@@ -16,8 +16,8 @@ class UpdateBookSchema(BaseModel):
 
 
 
-class PostOutSchema(BaseModel):
-    id:str
+class BookOutSchema(BaseModel):
+    id:int
     title: str
     author: str
     year: int
