@@ -1,7 +1,6 @@
-This is a simple CRUD rest API
-The webserver is Uvicorn
+This is a simple FastAPI CRUD rest API with Uvicorn webserver
 
-Uses Async Sqlite and Async SQLAlchemy ORM VERSION 2
+Uses Async Sqlite database and Async SQLAlchemy ORM VERSION 2
 
 
 DEVELOPER INFORMATION
